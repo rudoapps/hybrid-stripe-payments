@@ -1,0 +1,33 @@
+name: hybrid_stripe_payments
+description: "A Flutter plugin that provides a unified Dart API to present native Stripe **PaymentSheet** and **SetupSheet** on Android and iOS."
+version: 1.0.0
+homepage: https://github.com/rudoapps/hybrid-stripe-payments
+repository: https://github.com/rudoapps/hybrid-stripe-payments
+issue_tracker: https://github.com/rudoapps/hybrid-stripe-payments/issues
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.3.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.rudo.hybrid_stripe_payments
+        pluginClass: HybridStripePaymentsPlugin
+      ios:
+        pluginClass: HybridStripePaymentsPlugin
+
+topics:
+  - payments
+  - stripe

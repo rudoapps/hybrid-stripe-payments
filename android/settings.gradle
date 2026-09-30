@@ -1,0 +1,8 @@
+rootProject.name = 'hybrid_stripe_payments'
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}

@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.rudo.hybrid_stripe_payments">
+    <application android:enableOnBackInvokedCallback="true">
+        <activity
+            android:name="com.rudo.hybrid_stripe_payments.presentation.WalletStripeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="false"/>
+    </application>
+</manifest>

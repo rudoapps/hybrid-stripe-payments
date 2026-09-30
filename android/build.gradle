@@ -1,0 +1,106 @@
+group = "com.rudo.hybrid_stripe_payments"
+version = "1.0-SNAPSHOT"
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.9.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0")
+        classpath("org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.1.0")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
+
+android {
+    namespace = "com.rudo.hybrid_stripe_payments"
+
+    compileSdk = 36
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+        test.java.srcDirs += "src/test/kotlin"
+    }
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
+
+    dependencies {
+        // Stripe - SDK de Stripe para pagos
+        api("com.stripe:stripe-android:21.20.2")
+        implementation("com.stripe:stripecardscan:21.20.2")
+        
+        // Compose BOM (Bill of Materials) - gestiona las versiones de Compose automáticamente
+        def composeBom = platform("androidx.compose:compose-bom:2024.12.01")
+        implementation(composeBom)
+        implementation("androidx.compose.ui:ui")
+        implementation("androidx.compose.ui:ui-graphics")
+        implementation("androidx.compose.material3:material3")
+
+        //Kotlin dependencies
+        implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.0")
+
+        // AndroidX - Librerías de compatibilidad y componentes básicos
+        implementation("androidx.core:core-ktx:1.15.0")
+        implementation("androidx.appcompat:appcompat:1.7.0")
+        implementation("androidx.activity:activity-compose:1.9.3")
+
+        // Network
+        implementation("com.squareup.retrofit2:retrofit:3.0.0")
+        implementation("com.squareup.okhttp3:logging-interceptor:5.1.0")
+        implementation("com.google.code.gson:gson:2.13.1")
+        implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+
+        //Store
+        implementation("androidx.datastore:datastore-preferences:1.1.7")
+
+        // Testing - Dependencias para pruebas unitarias
+        testImplementation("org.jetbrains.kotlin:kotlin-test:2.1.0")
+        testImplementation("junit:junit:4.13.2")
+        testImplementation("org.mockito:mockito-core:5.0.0")
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+
+            testLogging {
+               events "passed", "skipped", "failed", "standardOut", "standardError"
+               outputs.upToDateWhen {false}
+               showStandardStreams = true
+            }
+        }
+    }
+}
